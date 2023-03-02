@@ -39,9 +39,10 @@ void main() {
 
   group("getArticles", () {
     final articlesFromService = [
-      Article(title: "test1", content: "test1"),
-      Article(title: "test2", content: "test2"),
-      Article(title: "test3", content: "test3"),
+        Article(title: "titletest1", content: "contenttest1"),
+    Article(title: "titletest2", content: "contenttest2"),
+    Article(title: "titletest3", content: "contenttest3"),
+  
     ];
 
     void arrangeNewsServiceReturns3Articles() {
