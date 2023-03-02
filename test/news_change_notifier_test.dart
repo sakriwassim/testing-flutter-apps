@@ -36,4 +36,39 @@ void main() {
       expect(sut.isLoading, false);
     },
   );
+
+  group("getArticles", () {
+    final articlesFromService = [
+      Article(title: "test1", content: "test1"),
+      Article(title: "test2", content: "test2"),
+      Article(title: "test3", content: "test3"),
+    ];
+
+    void arrangeNewsServiceReturns3Articles() {
+      when(
+        () => mockNewsService.getArticles(),
+      ).thenAnswer((invocation) async => articlesFromService);
+    }
+
+    test("get Articles using the NewsService ", () async {
+      arrangeNewsServiceReturns3Articles();
+      await sut.getArticles();
+      verify(() => mockNewsService.getArticles()).called(1);
+    });
+
+    test("""indicates loding of data , 
+      sets articles to the ones form the service , 
+      indicates that data is not being loaded anymore """, () async {
+      arrangeNewsServiceReturns3Articles();
+      final future = sut.getArticles();
+
+      expect(sut.isLoading, true);
+      await future;
+      expect(
+        sut.articles,
+        articlesFromService,
+      );
+      expect(sut.isLoading, false);
+    });
+  });
 }
